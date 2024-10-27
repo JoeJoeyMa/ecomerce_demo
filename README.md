@@ -24,33 +24,18 @@
 
 
 
-<p align="center">
-  <video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/1.mp4" 
-         controls="controls" 
-         muted="muted" 
-         playsinline="playsinline"
-         width="100%"
-         style="max-width: 720px;">
-  </video>
-</p>
-<p align="center">
-  <video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/2.mp4" 
-         controls="controls" 
-         muted="muted" 
-         playsinline="playsinline"
-         width="100%"
-         style="max-width: 720px;">
-  </video>
-</p>
-<p align="center">
-  <video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/3.mp4" 
-         controls="controls" 
-         muted="muted" 
-         playsinline="playsinline"
-         width="100%"
-         style="max-width: 720px;">
-  </video>
-</p>
+https://github.com/user-attachments/assets/72af0378-6b92-47db-b986-781e316647c4
+
+
+https://github.com/user-attachments/assets/55a75e3b-a5d6-4bae-a406-3936879fbf53
+
+
+https://github.com/user-attachments/assets/4214f952-0fb1-4044-99ea-89fde7d47e0d
+
+
+
+
+
 
 ## Project Structure
 
