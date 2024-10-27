@@ -1,0 +1,218 @@
+jQuery(function($){
+
+    var $header = $('#header');
+    var $nav = $('#nav');
+
+    var __is_nav_open = false;
+
+    $('.__btn-nav-toggle').on('click', function(e){
+        e.preventDefault();
+        __is_nav_open = !__is_nav_open;
+        $('body').toggleClass('__nav-opened', __is_nav_open);
+        $(this).toggleClass('__active', __is_nav_open);
+
+        var tl = gsap.timeline({
+            onComplete: function(){
+                gsap.set($nav, {clearProps:'all'});
+                gsap.set($('.__nav-inner', $nav), {clearProps:'all'});
+            }
+        });
+        if ( __is_nav_open ) {
+
+            tl.fromTo($nav, {autoAlpha:0}, {autoAlpha:1, duration:.25})
+                .fromTo($('.__nav-inner', $nav), {x:'100%'}, {x:'0%', duration:.5, ease:Quint.easeInOut})
+        } else {
+            tl.fromTo($('.__nav-inner', $nav), {x:'0%'}, {x:'100%', duration:.5, ease:Quint.easeInOut})
+                .fromTo($nav, {autoAlpha:1, zIndex: 1000}, {autoAlpha:0, zIndex:-1, duration:.25})
+        }
+
+    });
+
+
+
+    $('#nav .__gnb .__menu > li').on('mouseenter', function(){
+        if (window.innerWidth <= 1024) return;
+        var $depth2 = $(this).find('.__depth2');
+        if ( $depth2[0]) {
+            if ( this.showTL ) {
+                this.showTL.kill();
+                this.showTL = null;
+            }
+            if ( this.hideTL ) {
+                this.hideTL.kill();
+                this.hideTL = null;
+            }
+            gsap.set($depth2, {clearProps:'all'});
+            gsap.set($('.__dim__', $depth2), {clearProps:'all'});
+            gsap.set($('> ul', $depth2), {clearProps:'all'});
+            gsap.set($('> ul > li', $depth2), {clearProps:'all'});
+            this.showTL = gsap.timeline({
+                onComplete: function(){
+                    gsap.set($depth2, {clearProps:'all'});
+                    gsap.set($('.__dim__', $depth2), {clearProps:'all'});
+                    gsap.set($('> ul', $depth2), {clearProps:'all'});
+                    gsap.set($('> ul > li', $depth2), {clearProps:'all'});
+                    $depth2[0].height = $depth2.height();
+                }
+            })
+                .fromTo($('.__dim__', $depth2), {autoAlpha:0}, {autoAlpha:1, duration:.25}, 0)
+                .set($('> ul', $depth2), {overflow:'hidden',  clearProps:'min-height'}, 0)
+                .from($('> ul', $depth2), {minHeight:0, height:0, duration:.4, ease:Quart.easeInOut}, 0)
+                .fromTo($('> ul > li', $depth2), {autoAlpha:0, y:'-10px'}, {autoAlpha:1, y:'0px', duration:.65, stagger:.075}, 0.1)
+        }
+    });
+
+
+    $('#nav .__gnb .__menu > li').on('mouseleave', function(){
+        if (window.innerWidth <= 1024) return;
+        var $depth2 = $(this).find('.__depth2');
+        if ( $depth2[0]) {
+            if ( this.showTL ) {
+                this.showTL.kill();
+                this.showTL = null;
+            }
+            if ( this.hideTL ) {
+                this.hideTL.kill();
+                this.hideTL = null;
+            }
+            var __height = Math.max($depth2[0].height, $depth2.height());
+            this.hideTL = gsap.timeline({
+                onComplete: function(){
+                    gsap.set($depth2, {clearProps:'all'});
+                    gsap.set($('.__dim__', $depth2), {clearProps:'all'});
+                    gsap.set($('> ul', $depth2), {clearProps:'all'});
+                    gsap.set($('> ul > li', $depth2), {clearProps:'all'});
+                }
+            })
+                .set($depth2, {autoAlpha:1, zIndex:1})
+                .set($('> ul', $depth2), {autoAlpha:1,overflow:'hidden',minHeight:__height, height:__height})
+                .to($('> ul', $depth2), {minHeight:0, height:0, duration:.25, ease:Quart.easeInOut})
+                .to($('.__dim__', $depth2), {autoAlpha:0, duration:.25})
+        }
+    });
+
+    //mobile
+
+
+    $('#nav .__gnb .__menu > li > a').on('click', function(e){
+        console.log(e);
+        if (window.innerWidth > 1024) return;
+        var depth1 = $(this).next();
+        if ( depth1[0]) {
+            e.preventDefault();
+            var __height = $(depth1).outerHeight();
+            $(this).closest('li').toggleClass('__open');
+            if ( depth1.tl ) {
+                depth1.tl.kill();
+                depth1.tl = null;
+            }
+            depth1.tl = gsap.timeline({
+                onComplete:function(){
+                    gsap.set(depth1, {clearProps:'all'});
+                }
+            })
+            if ( $(this).closest('li').hasClass('__open')) {
+                depth1.tl.set(depth1, {height:'auto'})
+                depth1.tl.from(depth1, {height:0, duration:.25, ease:Quart.easeInOut});
+            } else {
+                depth1.tl.fromTo(depth1, {height:__height}, {height:0, duration:.25, ease:Quart.easeInOut});
+            }
+        }
+    });
+
+    $('.__search .__btn-show', $header).on('click', function (e) {
+        e.preventDefault();
+        $('.__search .__btn-show', $header).removeClass('__active');
+        $('.__search .__btn-hide', $header).addClass('__active');
+        $('.__search-box').addClass('__active');
+        var searchBox = $('.__search-box')[0];
+        if ( searchBox.tl ) {
+            searchBox.tl.kill();
+            searchBox.tl = null;
+        }
+
+
+        searchBox.tl = gsap.timeline({
+            onComplete:function(){
+                gsap.set(searchBox, {clearProps:'all'});
+                gsap.set($('.__dim__', searchBox), {clearProps:'all'});
+                gsap.set($('.__box', searchBox), {clearProps:'all'});
+            }
+        })
+            .set($('.__box', searchBox), {overflow:'hidden'})
+            .fromTo($('.__dim__', searchBox), {autoAlpha:0}, {autoAlpha:1, duration:.25})
+            .from($('.__box', searchBox), {height:0, duration:.4, ease:Quart.easeInOut})
+    });
+    $('.__search .__btn-hide, .__search-box .__dim__', $header).on('click', function (e) {
+        e.preventDefault();
+        $('.__search .__btn-hide', $header).removeClass('__active');
+        $('.__search .__btn-show', $header).addClass('__active');
+        $('.__search-box').removeClass('__active');
+        var searchBox = $('.__search-box')[0];
+        if ( searchBox.tl ) {
+            searchBox.tl.kill();
+            searchBox.tl = null;
+        }
+
+        searchBox.tl = gsap.timeline({
+            onComplete:function(){
+                gsap.set(searchBox, {clearProps:'all'});
+                gsap.set($('.__dim__', searchBox), {clearProps:'all'});
+                gsap.set($('.__box', searchBox), {clearProps:'all'});
+            }
+        })
+            .set(searchBox, {autoAlpha:1, zIndex: 1})
+            .set($('.__box', searchBox), {overflow:'hidden'}, 0)
+            .to($('.__box', searchBox), {height:0, duration:.25, ease:Quart.easeInOut})
+            .to($('.__dim__', searchBox), {autoAlpha:0, duration:.25})
+    });
+
+
+
+
+
+
+    $('.__btn-toggle--key-info, .__key-info .__btn-close, .__key-info .__dim__').on('click', function(e){
+        e.preventDefault();
+        var $keyInfo = $('.__key-info');
+        var keyInfo = $('.__key-info')[0];
+        $keyInfo.toggleClass('__active');
+        $('body').toggleClass('__key-info-opened', $keyInfo.hasClass('__active'));
+
+        if ( keyInfo.tl) {
+            keyInfo.tl.kill();
+            keyInfo.tl = null;
+        }
+        keyInfo.tl = gsap.timeline({
+            onComplete: function() {
+                gsap.set(keyInfo, {clearProps:'all'});
+                gsap.set($('.__dim__', keyInfo), {clearProps:'all'});
+                gsap.set($('.__key-info-header', keyInfo), {clearProps:'all'});
+                gsap.set($('.__key-info-body', keyInfo), {clearProps:'all'});
+                gsap.set($('.__widget', keyInfo), {clearProps:'all'});
+                gsap.set($('.__box', keyInfo), {clearProps:'all'});
+            }
+        })
+
+        if ($keyInfo.hasClass('__active')) {
+            keyInfo.tl
+                .set($('.__key-info-body', keyInfo), {autoAlpha: 0})
+                .fromTo($('.__dim__', keyInfo), {autoAlpha:0}, {autoAlpha:1, duration:.3}, 0.1)
+                .fromTo($('.__box', keyInfo), {autoAlpha:0}, {autoAlpha:1, duration:.3}, 0.1)
+                .set($('.__key-info-body', keyInfo), {overflow:'hidden', height:'auto', autoAlpha:1}, .3)
+                .set($('.__key-info-body', keyInfo), {overflow:'hidden', height:'auto', autoAlpha:1}, .3)
+                .from($('.__key-info-body', keyInfo), {height:0, duration:.4, ease:Quart.easeInOut}, .3)
+                .fromTo($('.__widget', keyInfo), {autoAlpha:0, y:'-30px'}, {autoAlpha:1, y:'0px', duration:1, ease:Quart.easeOut, stagger:.15}, .2)
+        } else {
+            keyInfo.tl
+                .set(keyInfo, {autoAlpha:1, zIndex:1000})
+                .set($('.__key-info-body', keyInfo), {overflow:'hidden'})
+                .to($('.__key-info-body', keyInfo), {height:0, duration:.3, ease:Quart.easeInOut}, 0)
+                .to($('.__key-info-header', keyInfo), {autoAlpha:0, duration:.3}, 0)
+                .to($('.__box', keyInfo), {autoAlpha:0, duration:.25}, .3)
+                .to($('.__dim__', keyInfo), {autoAlpha:0, duration:.25}, .3)
+        }
+    })
+
+
+})

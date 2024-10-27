@@ -1,0 +1,377 @@
+// G.A. Event Tag
+function eventTrack( action ) {
+    try {
+        if( action != '' ) {
+            action = action+'_'+(lang||'kr');
+            location.href.indexOf('localhost') && console.log('G.A. Event Tag', action);
+            gtag('event', action);
+        }
+    } catch( evt ) { console.log(evt); }
+}
+
+var Detect = new function() {
+	const agent = navigator.userAgent;
+
+    this.isTouch	= !!('ontouchstart' in window);
+    this.isMac		= !!agent.match(/Mac/i);
+    this.isIOS		= /iPhone|iPad|iPod/.test(navigator.userAgent) || (this.isTouch && this.isMac);
+    this.isAndroid	= !!agent.match(/Android/i);
+    this.isFold1	= !!agent.match(/SM-F907/i);
+    this.isFold2	= !!agent.match(/SM-F916/i);
+    this.isFold		= !!agent.match(/SM-F9/i);
+    this.isFlip		= !!agent.match(/SM-F70/i);
+    this.isMobile	= !!(this.isIOS || this.isAndroid);
+    this.MOBILE_MAX_WIDTH = 767;
+    this.TABLET_MAX_WIDTH = 959;
+    this.windowInnerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    this.isDesktop	= !this.isTouch && this.windowInnerWidth > this.TABLET_MAX_WIDTH;
+    this.isTablet	= this.isTouch && this.windowInnerWidth > this.MOBILE_MAX_WIDTH;
+    this.isMobile	= this.isTouch && !this.isTablet;
+};
+
+var Common = (function() {
+    if(!document.querySelector('[body-motion-loaded]')) $('body').addClass('__loaded');
+    var $header = $('#header');
+    var $gnb = $header.find('.__gnb');
+    var isRender = false;
+
+
+    function init() {
+        window.addEventListener('resize', function() {
+            requestAnimationFrame(resizeHandler);
+        }, false);
+        resizeHandler();
+        // If the user clicks anywhere outside the select box, then close all select boxes:
+        // document.addEventListener('click', closeAllSelect);
+        // commonSelect();
+        selectBox();
+        changeTab();
+        stepBox();
+        activateMenu();
+        $(window).on('hashchange.gnb', changeLocationHash);
+    }
+
+    function resizeHandler() {
+        document.documentElement.style.setProperty('--app-width', document.documentElement.clientWidth+'px');
+        document.documentElement.style.setProperty('--app-height', document.documentElement.clientHeight+'px');
+    }
+
+    function commonSelect(notFirst, removeElem) {
+        var x, i, j, l, ll, selElmnt, a, b, c, d, linkTemp, replace;
+
+        if(notFirst && removeElem !== undefined){
+            removeElem.find('.select-selected').eq(0).remove();
+            removeElem.find('.select-items').eq(0).remove();
+        }
+
+        /* Look for any elements with the class "custom-select": */
+        x = document.getElementsByClassName("custom-select");
+        l = x.length;
+
+        if(x.length === 0) return;
+
+        var isContainLink = x[0].classList.contains('link');
+
+        for (i = 0; i < l; i++) {
+            selElmnt = x[i].getElementsByTagName("select")[0];
+            ll = selElmnt.length;
+            /* For each element, create a new DIV that will act as the selected item: */
+            a = document.createElement("DIV");
+            a.setAttribute("class", "select-selected");
+            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+
+            if(isContainLink) linkTemp = x[0].getElementsByTagName('li');
+
+            x[i].appendChild(a);
+            /* For each element, create a new DIV that will contain the option list: */
+            b = document.createElement("DIV");
+            b.setAttribute("class", "select-items select-hide");
+            for (j = 0; j < ll; j++) {
+                /* For each option in the original select element,
+                create a new DIV that will act as an option item: */
+                c = document.createElement("DIV");
+                if($(selElmnt.options[j]).hasClass('soldOut')) c.classList = 'soldOut';
+                c.innerHTML = selElmnt.options[j].innerHTML;
+
+                if(isContainLink && linkTemp[j].innerHTML && linkTemp[j].innerHTML.length > 0){
+                    replace = '&amp;';
+                    d = document.createElement('a');
+                    d.href = linkTemp[j].innerHTML.replaceAll(replace, '&');
+                    c.appendChild(d);
+                }
+
+                c.addEventListener("click", function(e) {
+                    /* When an item is clicked, update the original select box,
+                    and the selected item: */
+                    var y, i, k, s, h, sl, yl;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    sl = s.length;
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < sl; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("same-as-selected");
+                            yl = y.length;
+                            for (k = 0; k < yl; k++) {
+                                y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "same-as-selected");
+                            break;
+                        }
+                    }
+                    h.click();
+                    $(s).change();
+                });
+                b.appendChild(c);
+            }
+            x[i].appendChild(b);
+            a.addEventListener("click", function(e) {
+                /* When the select box is clicked, close any other select boxes,
+                and open/close the current select box: */
+                e.stopPropagation();
+                closeAllSelect(this);
+                this.nextSibling.classList.toggle("select-hide");
+                this.classList.toggle("select-arrow-active");
+                $(this).closest('.custom-select').toggleClass('open');
+            });
+        }
+    }
+
+    function closeAllSelect(elmnt) {
+        // A function that will close all select boxes in the document, except the current select box:
+        var x, y, i, xl, yl, arrNo = [];
+        x = document.getElementsByClassName("select-items");
+        y = document.getElementsByClassName("select-selected");
+        xl = x.length;
+        yl = y.length;
+        for (i = 0; i < yl; i++) {
+            if (elmnt == y[i]) {
+                arrNo.push(i)
+            } else {
+                y[i].classList.remove("select-arrow-active");
+            }
+        }
+        for (i = 0; i < xl; i++) {
+            if (arrNo.indexOf(i)) {
+                var selectWrap = $(x[i]).closest('.custom-select');
+
+                x[i].classList.add("select-hide");
+                $(x[i]).closest('.custom-select').removeClass('open');
+
+                if($(x[i]).find('.same-as-selected').length === 0) selectWrap.addClass('first');
+                else selectWrap.removeClass('first');
+            }
+        }
+    }
+
+    function selectBox() {
+        var toggle = $('.select_wrap .select_toggle');
+        toggle.on('click', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            toggle.toggleClass('active');
+            if (toggle.hasClass('active')) {
+                requestAnimationFrame(function(){
+                    $(document).one('click', function(e){
+                        e.stopImmediatePropagation();
+                        toggle.removeClass('active');
+                    })
+                })
+            }
+
+        })
+    }
+
+    function changeTab() {
+        var $tabBtn = $('.btn_tab');
+        $tabBtn.on('click', function () {
+            var $this = $(this);
+            var $btnIdx = $this.index();
+            var $tabBox = $this.closest('.tab_area');
+            var $tabInner = $tabBox.find('.tab_menu');
+            var $thisTabBtn = $tabInner.find('.btn_tab');
+            var $tabContent = $tabBox.siblings('.tab_content');
+
+            $thisTabBtn.removeClass('__active')
+            $this.toggleClass('__active');
+            $tabContent.removeClass('__active').eq($btnIdx).addClass('__active');
+        });
+    }
+
+    function stepBox() {
+        $('.step_wrap #q1 button').on('click', function(e){
+            var $this = $(this);
+            var selId = $this.data('id');
+            var $color = $this.data('color');
+            var $name = $this.data('name');
+            var scrollPos = $('.step_wrap #q1').offset().top + $('.step_wrap #q1').outerHeight();
+            e.preventDefault();
+            $('.step_wrap #q1 button').removeClass('active');
+            $('.step_wrap #q2 button').removeClass('active b1 b2').addClass($color);
+            if($name === 'no_name') {
+                $('.step_wrap #q3 .input_list').show();
+                $('.step_wrap #q3 .input_list.no_name').hide();
+            } else {
+                $('.step_wrap #q3 .input_list').show();
+            }
+            $(this).addClass('active');
+            $('.step_wrap #q2, .step_wrap #q3').fadeOut(500);
+            $('.step_wrap').find('#'+selId).fadeIn(500);
+            $("html,body").stop().animate({
+                scrollTop: scrollPos
+            }, {
+                duration: 300,
+                complete: function complete() {}
+            });
+        });
+        $('.step_wrap #q2 button').on('click', function(e){
+            var scrollPos = $('.step_wrap #q2').offset().top + $('.step_wrap #q2').outerHeight();
+            e.preventDefault();
+            $('.step_wrap #q2 button').removeClass('active');
+            $(this).addClass('active');
+            $('.step_wrap #q3').fadeIn(500);
+            $("html,body").stop().animate({
+                scrollTop: scrollPos
+            }, {
+                duration: 300,
+                complete: function complete() {}
+            });
+        });
+    }
+
+    function activateMenu() {
+        $gnb.find('a').each( function( i, a ) {
+            var $a=$(a), name=$a.attr('class'), href=$a.attr('href'), dataHref=$(a).data('href');
+            var isGnbSub = !!$a.closest('li').find('>.depth2').length;
+            var url = href.indexOf('http') > -1 ? location.href : location.pathname;
+            url += location.hash;
+            if( dataHref && dataHref === url.replace(location.hash,'') ) dataHref = url;
+            if( url === '/' ) return;
+
+            // temporary : compliance hash link landing
+            if (location.hash == "#Program"){
+                $('.tab_menu').find('li').eq(0).addClass('__active').siblings().removeClass();
+                $('.tab_content').eq(0).addClass('__active').siblings().removeClass('__active');
+            } else if(location.hash == "#Conduct&Guide"){
+                $('.tab_menu').find('li').eq(1).addClass('__active').siblings().removeClass();
+                $('.tab_content').eq(1).addClass('__active').siblings().removeClass('__active');
+            } else if(location.hash == "#ComplianceHotline") {
+                $('.tab_menu').find('li').eq(2).addClass('__active').siblings().removeClass();
+                $('.tab_content').eq(2).addClass('__active').siblings().removeClass('__active');
+            }
+
+            // $a.removeClass('on');
+            // if( dataHref && dataHref === url || href === url ) {
+            //     // SubDefault & SubOutside
+            //     if( name != 'linkDep1' ) {
+            //         // activateDepth3
+            //         $a.addClass('on');
+            //
+            //         // activateDepth1
+            //         var $d2 = $a.closest('div.depth2');
+            //         var $d1s = $d2.closest('ul.depth1'), c = $d1s.attr('class');
+            //         if( c && c.indexOf('depth1') > -1 ) {
+            //             $a.closest('li').addClass('on').data('href',url);
+            //             $a.parent().parent('.depth3').parent('.has_depth3').addClass('on');
+            //             activeIndex = $d1s.index();
+            //
+            //             if( !isRender ) {
+            //                 activateDepth1( activeDuration );
+            //             }
+            //         }
+            //     }
+            // }
+        });
+
+        isRender = true;
+    }
+
+    function changeLocationHash() {
+        // if( location.hash != '' ) location.reload();
+        if( location.hash != '' && !!!$gnb.data('tabClicked') ) location.reload();
+
+        setTimeout( function() {
+            activateMenu();
+        }, 0 );
+    }
+
+    return {
+        init : init,
+    }
+})();
+
+var Language = (function(exports) {
+    function translate( option ) {
+        var that = this;
+        var opts = $.extend( {css:'trn',lang:'en'}, option||{} );
+        if( opts.css.lastIndexOf('.',0) !== 0 ) opts.css = '.'+opts.css;
+
+        this.lang = function( l ) {
+          if( l ) {
+            opts.lang = l;
+            this.translate(opts);
+          }
+
+          return opts.lang;
+        };
+
+        this.get = function(index) {
+          var res = index;
+          try { res = opts.property[index][opts.lang];
+          } catch( err ) { return index; }
+		  return res ? res : index;
+        };
+
+        this.g = this.get;
+        this.find(opts.css).each( function(i) {
+          var $this = $(this);
+          var trn_key = $this.attr('data-trn-key');
+          if( !trn_key ) {
+            trn_key = $this.html();
+            $this.attr('data-trn-key',trn_key);
+          }
+
+          $this.html( that.get(trn_key) );
+        });
+
+        return this;
+    }
+
+    function init() {
+        $.fn.translate = translate;
+
+        // 국문 /ko 영문 /en 중문 /ch
+		try {
+			lang = lang ? lang : "ko";
+		} catch(err) { lang = "ko"; }
+        const language = lang;
+        const $body = document.querySelector('body');
+        $body.classList.add(language);
+
+        const $header = document.querySelector('header');
+        try { $header.style.visibility = 'visible'; }
+		catch(err) {}
+
+        document.querySelectorAll('*').forEach( function( el, i ) {
+            if( !!el.getAttribute('data-trn-key') ) el.classList.add('trn');
+        });
+
+		const _COMMON		= window.COMMON_PROPERTY	? window.COMMON_PROPERTY : {};
+		const _TRANSLATE	= window.PROPERTIES			? window.PROPERTIES : {};
+        var property = Object.assign(_COMMON, _TRANSLATE);
+        $('body').translate( {lang:lang, property:property} );
+		try { $header.classList.add('translated'); }
+		catch(err) {}
+    }
+
+    exports.init = init;
+    return exports;
+})({});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    Common.init();
+    Language.init();
+});
+

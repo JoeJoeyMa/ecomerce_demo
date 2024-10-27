@@ -1,0 +1,33 @@
+// (function($){
+
+function init() {
+    showQuestion();
+    hashLanding();
+}
+
+function showQuestion() {
+    var $btnReport = $('.btn_report');
+    $btnReport.on('click', function (e) {
+        var $q1 = $('.step_wrap #q1');
+        var $q2 = $('.step_wrap #q2');
+        var $q3 = $('.step_wrap #q3');
+        $q1.fadeIn(500)
+        $q2.fadeOut(500);
+        $q3.fadeOut(500);
+        var scrollPos = $q1.offset().top - $('#header').outerHeight();
+        e.preventDefault();
+        $("html,body").stop().animate({
+            scrollTop: scrollPos
+        }, { duration: 300, });
+    });
+}
+
+function hashLanding() {
+}
+
+function txtNum(){
+    
+}
+
+init();
+// })();

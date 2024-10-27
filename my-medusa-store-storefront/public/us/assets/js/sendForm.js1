@@ -1,0 +1,32 @@
+const Sender = (function(){
+	var submitted = false;
+	
+	function sendForm(form, url, callback) {
+		const req = new XMLHttpRequest();
+		req.open("POST", url, true);
+		req.addEventListener("load", function() {
+			if( req.readyState === XMLHttpRequest.DONE && req.status == 200) {
+				const json = JSON.parse(this.responseText);
+				if( json.result == "success") {
+					if( json.success && json.success !== "" )
+						alert( json.success );
+						callback ? callback() : "";
+				} else {
+					alert( json.error );
+				}
+			}
+		});
+		const formData = new FormData(form);
+		
+		if (!submitted) {
+			submitted = true;
+			setTimeout(function() {
+				req.send(formData);
+			}, 2000)
+		} else { return; }
+	}
+
+	return {
+		form : sendForm
+	}
+})();
