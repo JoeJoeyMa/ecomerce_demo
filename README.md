@@ -31,17 +31,41 @@ This demo consists of three main components:
 ## Demo Videos
 
 ### 1. Store mobile Demo
-https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/1.mp4
+<p align="center">
+  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/1.mp4" 
+         controls="controls" 
+         muted="muted" 
+         playsinline="playsinline"
+         width="100%"
+         style="max-width: 720px;">
+  </video>
+</p>
 
 Demonstrates the admin interface and store management capabilities.
 
 ### 2. Store desktop Demo
-https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/2.mp4
+<p align="center">
+  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/2.mp4"
+         controls="controls" 
+         muted="muted" 
+         playsinline="playsinline"
+         width="100%"
+         style="max-width: 720px;">
+  </video>
+</p>
 
 Showcases the customer shopping journey from browsing to checkout.
 
 ### 3. Features Overview for Medusa.JS GSAP frontend
-https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/3.mp4
+<p align="center">
+  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/3.mp4"
+         controls="controls" 
+         muted="muted" 
+         playsinline="playsinline"
+         width="100%"
+         style="max-width: 720px;">
+  </video>
+</p>
 
 A comprehensive overview of all key features and functionalities.
 
