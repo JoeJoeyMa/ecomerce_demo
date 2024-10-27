@@ -31,17 +31,17 @@ This demo consists of three main components:
 ## Demo Videos
 
 ### 1. Store mobile Demo
-<video src="./video/1.mp4" controls title="Store Management Demo"></video>
+https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/1.mp4
 
 Demonstrates the admin interface and store management capabilities.
 
 ### 2. Store desktop Demo
-<video src="./video/2.mp4" controls title="Store Management Demo"></video>
+https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/2.mp4
 
 Showcases the customer shopping journey from browsing to checkout.
 
-### 3. Features Overview for Medusa.JS  GSAP  frontend
-<video src="./video/3.mp4" controls title="Store Management Demo"></video>
+### 3. Features Overview for Medusa.JS GSAP frontend
+https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/3.mp4
 
 A comprehensive overview of all key features and functionalities.
 
