@@ -1,6 +1,56 @@
-# ecommerce_demo
+<h1 align="center">
+  <a href="https://github.com/JoeJoeyMa/ecomerce_demo"><img src="https://github.com/user-attachments/assets/38ba3a7b-e07b-4117-8187-7b171eae3769" alt="Ecommerce Demo" width="80" height="80"></a>
+  <br>
+  <br>
+  Ecommerce Demo
+  <br>
+</h1>
 
-A comprehensive e-commerce solution built with Medusa.js, combining three integrated projects to create a complete online shopping experience.
+<p align="center">A comprehensive e-commerce solution built with <a href="https://medusajs.com/" target="_blank">Medusa.js</a>, combining three integrated projects</p>
+
+<p align="center">
+  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
+  </a>
+    
+  <a href="https://discord.gg/xpCwq3Kfn8">
+    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
+  </a>
+
+  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
+    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
+  </a>
+</p>
+
+
+
+<p align="center">
+  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/1.mp4" 
+         controls="controls" 
+         muted="muted" 
+         playsinline="playsinline"
+         width="100%"
+         style="max-width: 720px;">
+  </video>
+</p>
+<p align="center">
+  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/2.mp4" 
+         controls="controls" 
+         muted="muted" 
+         playsinline="playsinline"
+         width="100%"
+         style="max-width: 720px;">
+  </video>
+</p>
+<p align="center">
+  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/3.mp4" 
+         controls="controls" 
+         muted="muted" 
+         playsinline="playsinline"
+         width="100%"
+         style="max-width: 720px;">
+  </video>
+</p>
 
 ## Project Structure
 
@@ -31,41 +81,17 @@ This demo consists of three main components:
 ## Demo Videos
 
 ### 1. Store mobile Demo
-<p align="center">
-  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/1.mp4" 
-         controls="controls" 
-         muted="muted" 
-         playsinline="playsinline"
-         width="100%"
-         style="max-width: 720px;">
-  </video>
-</p>
+
 
 Demonstrates the admin interface and store management capabilities.
 
 ### 2. Store desktop Demo
-<p align="center">
-  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/2.mp4"
-         controls="controls" 
-         muted="muted" 
-         playsinline="playsinline"
-         width="100%"
-         style="max-width: 720px;">
-  </video>
-</p>
+
 
 Showcases the customer shopping journey from browsing to checkout.
 
 ### 3. Features Overview for Medusa.JS GSAP frontend
-<p align="center">
-  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/3.mp4"
-         controls="controls" 
-         muted="muted" 
-         playsinline="playsinline"
-         width="100%"
-         style="max-width: 720px;">
-  </video>
-</p>
+
 
 A comprehensive overview of all key features and functionalities.
 
