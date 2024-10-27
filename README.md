@@ -1,7 +1,41 @@
-<h1 align="center">Fashion E-commerce Starter for Medusa 2.0</h1>
-<video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/1.mp4" controls="controls" muted="muted" playsinline="playsinline"></video>
-<video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/2.mp4" controls="controls" muted="muted" playsinline="playsinline"></video>
-<video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/1.mp4" controls="controls" muted="muted" playsinline="playsinline"></video>
+<h1 align="center">
+  <a href="https://github.com/JoeJoeyMa/ecomerce_demo"><img src="https://github.com/user-attachments/assets/38ba3a7b-e07b-4117-8187-7b171eae3769" alt="Ecommerce Demo" width="80" height="80"></a>
+  <br>
+  <br>
+  Ecommerce Demo
+  <br>
+</h1>
+
+<p align="center">A comprehensive e-commerce solution built with <a href="https://medusajs.com/" target="_blank">Medusa.js</a>, combining three integrated projects</p>
+
+<p align="center">
+  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
+  </a>
+    
+  <a href="https://discord.gg/xpCwq3Kfn8">
+    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
+  </a>
+
+  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
+    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
+  </a>
+</p>
+
+
+
+https://github.com/user-attachments/assets/72af0378-6b92-47db-b986-781e316647c4
+
+
+https://github.com/user-attachments/assets/55a75e3b-a5d6-4bae-a406-3936879fbf53
+
+
+https://github.com/user-attachments/assets/4214f952-0fb1-4044-99ea-89fde7d47e0d
+
+
+
+
+
 
 ## Project Structure
 
