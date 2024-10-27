@@ -25,7 +25,7 @@
 
 
 <p align="center">
-  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/1.mp4" 
+  <video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/1.mp4" 
          controls="controls" 
          muted="muted" 
          playsinline="playsinline"
@@ -34,7 +34,7 @@
   </video>
 </p>
 <p align="center">
-  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/2.mp4" 
+  <video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/2.mp4" 
          controls="controls" 
          muted="muted" 
          playsinline="playsinline"
@@ -43,7 +43,7 @@
   </video>
 </p>
 <p align="center">
-  <video src="https://github.com/JoeJoeyMa/ecomerce_demo/raw/main/video/3.mp4" 
+  <video src="https://raw.githubusercontent.com/JoeJoeyMa/ecomerce_demo/refs/heads/main/video/3.mp4" 
          controls="controls" 
          muted="muted" 
          playsinline="playsinline"
